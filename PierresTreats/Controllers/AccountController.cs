@@ -4,6 +4,7 @@ using PierresTreats.Models;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Security.Claims;
+using PierresTreats.ViewModels;
 
 namespace PierresTreats.Controllers
 {
@@ -23,6 +24,27 @@ namespace PierresTreats.Controllers
     public ActionResult Index()
     {
         return View();
+    }
+
+    public IActionResult Register()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> Register (RegisterViewModel model)
+    {
+      var user = new ApplicationUser { UserName = model.Email };
+      IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+      if (result.Succeeded)
+      {
+
+          return RedirectToAction("Index", "Home");
+      }
+      else
+      {
+          return View();
+      }
     }
   }
 }
