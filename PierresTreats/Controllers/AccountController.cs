@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
-using GameStore.Models;
+using PierresTreats.Models;
 using System.Threading.Tasks;
-using PierresTreats.ViewModels;
 using System.Linq;
 using System.Security.Claims;
 
@@ -14,7 +13,7 @@ namespace PierresTreats.Controllers
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
 
-    public AccountController (UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, GameStoreContext db)
+    public AccountController (UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, PierresTreatsContext db)
     {
         _userManager = userManager;
         _signInManager = signInManager;
