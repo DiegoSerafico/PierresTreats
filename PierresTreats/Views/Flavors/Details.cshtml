@@ -1,0 +1,32 @@
+@{
+  Layout = "_Layout";
+}
+
+@model PierresTreats.Models.Flavor
+
+<div class="jumbotron">
+  <h1>Treat details</h1>
+</div>
+
+<h2>@Html.DisplayFor(model => model.Name)</h2>
+
+<hr />
+
+@if(@Model.JoinEntities.Count == 0)
+{
+  <p>There are no treats of this flavor</p>
+}
+else
+{
+  <h4>Treats of this flavor:</h4>
+  <ul>
+  @foreach(var join in Model.JoinEntities)
+  {
+    <li>@join.Treat.Name</li>
+  }
+  </ul>
+}
+<hr />
+
+<p>@Html.ActionLink("Back", "Index")</p>
+<p>@Html.ActionLink("Edit Flavor", "Edit", new { id = Model.FlavorId })</p>

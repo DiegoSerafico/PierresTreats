@@ -1,0 +1,19 @@
+@{
+  Layout = "_Layout";
+}
+
+@model PierresTreats.Models.Flavor
+
+<div class="jumbotron">
+  <h1>Add a Flavor</h1>
+</div>
+
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(model => model.Name)
+  @Html.TextBoxFor(model => model.Name)
+
+  <input type="submit" value="Add new Flavor" />
+}
+
+<p>@Html.ActionLink("Back", "Index")</p>
