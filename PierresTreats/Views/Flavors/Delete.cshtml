@@ -1,0 +1,21 @@
+@{
+  Layout = "_Layout";
+}
+
+@model PierresTreats.Models.Flavor
+
+<div class="jumbotron">
+  <h1>Delete</h1>
+</div>
+
+<h2>Are you sure you want to delete this?</h2>
+
+<h3>@Html.DisplayFor(model => model.Name)</h3>
+
+@using (Html.BeginForm())
+{
+  <input type="submit" value="Delete"/>
+}
+<hr />
+
+@Html.ActionLink("Cancel", "Details", new { id = Model.FlavorId })
