@@ -22,9 +22,29 @@ else
   <ul>
   @foreach(var join in Model.JoinEntities)
   {
-    <li>@join.Treat.Name</li>
+    <li>@Html.ActionLink(@join.Treat.Name, "Details", "Treats", new { id = join.Treat.TreatId })</li>
+    @using (Html.BeginForm("DeleteTreat", "Flavors", new { FlavorId = Model.FlavorId }))
+    {
+      @Html.Hidden("JoinId", @join.TreatFlavorId)
+      <input type="submit" value="Delete"/>
+    }
   }
   </ul>
+}
+
+@if(ViewBag.NoTreats)
+{
+  <p>There are no treats to add</p>
+}
+else
+{
+  @using (Html.BeginForm("AddTreat", "Flavors"))
+  {
+    @Html.HiddenFor(model => model.FlavorId)
+    @Html.Label("Add Treat")
+    @Html.DropDownList("TreatId")
+    <input type="submit" value="save"/>
+  }
 }
 <hr />
 

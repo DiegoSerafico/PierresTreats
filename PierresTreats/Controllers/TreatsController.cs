@@ -43,6 +43,8 @@ namespace PierresTreats.Controllers
 
     public ActionResult Details(int id)
     {
+      ViewBag.NoFlavors = _db.Flavors.ToList().Count == 0;
+      ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
       var thisTreat = _db.Treats
         .Include(treat => treat.JoinEntities)
         .ThenInclude(join => join.Flavor)
@@ -77,6 +79,25 @@ namespace PierresTreats.Controllers
       _db.Treats.Remove(thisTreat);
       _db.SaveChanges();
       return RedirectToAction("Index");
+    }
+
+    public ActionResult AddFlavor(Treat treat, int FlavorId)
+    {
+      if (FlavorId != 0)
+      {
+      _db.TreatFlavors.Add(new TreatFlavor() { FlavorId = FlavorId, TreatId = treat.TreatId});
+      }
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = treat.TreatId });
+    }
+
+    [HttpPost]
+    public ActionResult DeleteFlavor(int joinId, int TreatId)
+    {
+      var joinEntry = _db.TreatFlavors.FirstOrDefault(entry => entry.TreatFlavorId == joinId);
+      _db.TreatFlavors.Remove(joinEntry);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = TreatId });
     }
   }
 }  
