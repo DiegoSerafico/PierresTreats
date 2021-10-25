@@ -23,11 +23,6 @@ namespace PierresTreats.Controllers
       _db = db;
     }
 
-    public ActionResult Index()
-    {
-      return View(_db.Treats.ToList());
-    }
-
     public ActionResult Create()
     {
       return View();
@@ -38,9 +33,10 @@ namespace PierresTreats.Controllers
     {
       _db.Treats.Add(treat);
       _db.SaveChanges();
-      return RedirectToAction("Index");
+      return RedirectToAction("Index", "Home");
     }
 
+    [AllowAnonymous]
     public ActionResult Details(int id)
     {
       ViewBag.NoFlavors = _db.Flavors.ToList().Count == 0;
@@ -78,7 +74,7 @@ namespace PierresTreats.Controllers
       var thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
       _db.Treats.Remove(thisTreat);
       _db.SaveChanges();
-      return RedirectToAction("Index");
+      return RedirectToAction("Index", "Home");
     }
 
     public ActionResult AddFlavor(Treat treat, int FlavorId)

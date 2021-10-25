@@ -1,22 +1,30 @@
-@{
-  Layout = "_Layout";
-}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pierre's Treats</title>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+  <link rel="stylesheet" href="~/css/styles.css">
+</head>
+<body>
+  <div class="container">
+    @using PierresTreats.ViewModels
+    @model RegisterViewModel
 
-@using PierresTreats.ViewModels
-@model RegisterViewModel
+    <h2>Register</h2>
+    <hr />
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+      @Html.LabelFor(user => user.Email)
+      @Html.TextBoxFor(user=> user.Email)
 
-<h2>Register</h2>
-<hr />
-@using (Html.BeginForm("Register", "Account", FormMethod.Post))
-{
-    @Html.LabelFor(user => user.Email)
-    @Html.TextBoxFor(user=> user.Email)
+      @Html.LabelFor(user=> user.Password)
+      @Html.PasswordFor(user=> user.Password)
 
-    @Html.LabelFor(user=> user.Password)
-    @Html.PasswordFor(user=> user.Password)
+      @Html.LabelFor(user=> user.ConfirmPassword)
+      @Html.PasswordFor(user=> user.ConfirmPassword)
 
-    @Html.LabelFor(user=> user.ConfirmPassword)
-    @Html.PasswordFor(user=> user.ConfirmPassword)
-
-    <input type="submit" value="Register" />
-}
+      <input type="submit" value="Register" />
+    }
+  </div>
+</body>
+</html>

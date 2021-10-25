@@ -5,6 +5,8 @@ using System.Security.Claims;
 using System.Linq;
 using PierresTreats.Models;
 using PierresTreats.ViewModels;
+using System.Collections.Generic;
+using System.Dynamic;
 
 namespace PierresTreats.Controllers
 {
@@ -20,24 +22,15 @@ namespace PierresTreats.Controllers
       _signInManager = signInManager;
       _db = db;
     }
-    
+
     public ActionResult Index()
     {
-      return View();
-    }
-
-    [HttpPost]
-    public async Task<ActionResult> Index(LoginViewModel model)
-    {
-      Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
-      if (result.Succeeded)
-      {
-          return RedirectToAction("Index", "Account");
-      }
-      else
-      {
-          return View();
-      }
+      List<Flavor> flavors = _db.Flavors.ToList();
+      List<Treat> treats = _db.Treats.ToList();
+      dynamic model = new ExpandoObject();
+      model.Treats = treats;
+      model.Flavors = flavors;
+      return View(model);
     }
   }
 }

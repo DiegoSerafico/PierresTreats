@@ -6,20 +6,24 @@
   <h1>Welcome to Pierre's Treats</h1>
 </div>
 
-@using PierresTreats.ViewModels
-@model LoginViewModel
+@using PierresTreats.Models
+@model dynamic;
 
-<h2>Login or click register to register</h2>
-<hr />
-@using (Html.BeginForm())
-{
-  @Html.LabelFor(m => m.Email)
-  @Html.TextBoxFor(m => m.Email)
-
-  @Html.LabelFor(m => m.Password)
-  @Html.PasswordFor(m => m.Password)
-
-  <input type="submit" value="Log In" class="btn btn-default" />
-}
-
-<p>@Html.ActionLink("Register", "Register", "Account")</p>
+<div class="row h-100">
+  <div class="column min-vh-100">
+    <h2 class="jumbotron">Flavors</h2>
+    @foreach (Flavor flavor in Model.Flavors)
+    {
+      <li>@Html.ActionLink($"{flavor.Name}", "Details", "Flavors", new { id = flavor.FlavorId})</li>
+    }
+    <p>@Html.ActionLink("Add new Flavor", "Create", "Flavors")</p>
+  </div>
+  <div class="column min-vh-100">
+    <h2 class="jumbotron">Treats</h2>
+    @foreach (Treat treat in Model.Treats)
+    {
+      <li>@Html.ActionLink($"{treat.Name}", "Details", "Treats", new { id = treat.TreatId})</li>
+    }
+    <p>@Html.ActionLink("Add new treat", "Create", "Treats")</p>
+  </div>
+</div>
