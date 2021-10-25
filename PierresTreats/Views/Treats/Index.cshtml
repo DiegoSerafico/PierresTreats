@@ -1,0 +1,23 @@
+@{
+  Layout = "_Layout";
+}
+
+@using PierresTreats.Models;
+
+<div class = "jumbotron">
+  <h1>Treats</h1>
+</div>
+
+
+@if (@Model.Count == 0)
+{
+  <h2>No Treats have been added yet!</h2>
+}
+@foreach (Treat treat in Model)
+{
+  <p>@Html.ActionLink($"{treat.Name}", "Details", new{ id = treat.TreatId})</p>
+}
+
+<p>@Html.ActionLink("Add a Treat", "Create")</p>
+<p>@Html.ActionLink("See all Flavors", "Index", "Flavors")</p>
+<p>@Html.ActionLink("Profile", "Index", "Account")</p>
